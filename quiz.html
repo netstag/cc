@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Online Quiz App</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f4f4f4;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        width: 600px;
+        max-width: 100%;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .question {
+        margin-bottom: 20px;
+      }
+
+      .question p {
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        cursor: pointer;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background: #111;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      .result {
+        margin-top: 20px;
+        line-height: 1.8;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Online Quiz</h1>
+
+      <form id="quizForm">
+        <div class="question">
+          <p>1. What is the capital of India?</p>
+
+          <label>
+            <input type="radio" name="q1" value="Mumbai" />
+            Mumbai
+          </label>
+
+          <label>
+            <input type="radio" name="q1" value="Delhi" />
+            Delhi
+          </label>
+
+          <label>
+            <input type="radio" name="q1" value="Pune" />
+            Pune
+          </label>
+        </div>
+
+        <div class="question">
+          <p>2. Which planet is known as the Red Planet?</p>
+
+          <label>
+            <input type="radio" name="q2" value="Mars" />
+            Mars
+          </label>
+
+          <label>
+            <input type="radio" name="q2" value="Venus" />
+            Venus
+          </label>
+
+          <label>
+            <input type="radio" name="q2" value="Jupiter" />
+            Jupiter
+          </label>
+        </div>
+
+        <div class="question">
+          <p>3. How many continents are there?</p>
+
+          <label>
+            <input type="radio" name="q3" value="5" />
+            5
+          </label>
+
+          <label>
+            <input type="radio" name="q3" value="7" />
+            7
+          </label>
+
+          <label>
+            <input type="radio" name="q3" value="9" />
+            9
+          </label>
+        </div>
+
+        <div class="question">
+          <p>4. Which is the largest ocean?</p>
+
+          <label>
+            <input type="radio" name="q4" value="Atlantic" />
+            Atlantic
+          </label>
+
+          <label>
+            <input type="radio" name="q4" value="Indian" />
+            Indian
+          </label>
+
+          <label>
+            <input type="radio" name="q4" value="Pacific" />
+            Pacific
+          </label>
+        </div>
+
+        <div class="question">
+          <p>5. Who invented the telephone?</p>
+
+          <label>
+            <input type="radio" name="q5" value="Newton" />
+            Newton
+          </label>
+
+          <label>
+            <input type="radio" name="q5" value="Alexander Graham Bell" />
+            Alexander Graham Bell
+          </label>
+
+          <label>
+            <input type="radio" name="q5" value="Tesla" />
+            Tesla
+          </label>
+        </div>
+
+        <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+      </form>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <script>
+      function submitQuiz() {
+        const answers = {
+          q1: "Delhi",
+          q2: "Mars",
+          q3: "7",
+          q4: "Pacific",
+          q5: "Alexander Graham Bell",
+        };
+
+        let score = 0;
+
+        for (let key in answers) {
+          const selected = document.querySelector(
+            `input[name="${key}"]:checked`,
+          );
+
+          if (selected && selected.value === answers[key]) {
+            score++;
+          }
+        }
+
+        document.getElementById("result").innerHTML = `
+
+    <h2>
+      Score: ${score}/5
+    </h2>
+
+    <br>
+
+    <p>1. Delhi</p>
+
+    <p>2. Mars</p>
+
+    <p>3. 7</p>
+
+    <p>4. Pacific</p>
+
+    <p>5. Alexander Graham Bell</p>
+
+  `;
+      }
+    </script>
+  </body>
+</html>
+
+
+<!-- app.py -->
+ from flask import Flask , render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+<!-- requirements.txt -->
+Flask==3.0.0
+gunicorn==21.2.0
+
+ <!-- templates   (folder)  index.html-->
